@@ -19,7 +19,7 @@
 
     <main class="container-fluid">
         <div class="d-flex justify-content-between">
-            <form class="col-2"> 
+            <form class="col-2" id="cityForm"> 
                 <div class="input-group">
                     <label for="#cityName" class="h4">Search for a City</label>
                     <div class="input-group">
@@ -28,13 +28,19 @@
                             <button class="btn btn-primary fa fa-search"></button>
                         </div>
                     </div>
-                    <div class="border border-dark mt-2 card-body">
+                    <div class="border border-dark mt-2 card-body" id="searchBtn">
                         <ul id="cityList"></ul>
                     </div>
                 </div>
             </form>
             <div class="jumbotron col-9 mr-2" id="day1">
+                <ul>
+                    <li class="list-unstyled" id="temp1"></li>
+                    <li class="list-unstyled" id="humid1"></li>
+                    <li class="list-unstyled" id="wind1"></li>
+                    <li class="list-unstyled" id="uv1"></li>
 
+                </ul>
             </div>
         </div>
         <div class="col-9 float-right">
