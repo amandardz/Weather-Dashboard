@@ -2,13 +2,9 @@ var cityFormEl = document.querySelector('#cityForm')
 var searchBtnEl = document.querySelector('#searchBtn')
 var cityNameEl = document.querySelector('#cityName')
 var cityListEl = document.querySelector('#cityList')
-var day1El = document.querySelector('#day1')
-var day2El = document.querySelector('#day2')
-var day3El = document.querySelector('#day3')
-var day4El = document.querySelector('#day4')
-var day5El = document.querySelector('#day5')
+var currentDate = new Date().toLocaleDateString('en-US')
 
-var getWeather = function () {
+var getCurrentWeather = function () {
     var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=32.7831&lon=-96.8067&cnt=5&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
     console.log(weatherUrl)
     fetch(weatherUrl)
@@ -17,6 +13,10 @@ var getWeather = function () {
         })
         .then(function (data) {
             console.log(data)
+
+            var headingEl = document.getElementById('heading1');
+            headingEl.textContent = data.name + " " + "(" + currentDate + ")";
+            console.log(data.name)
 
             var temp1El = document.querySelector('#temp1')
             temp1El.textContent = "Temperature: " + data.main.temp + " ℉"
@@ -47,5 +47,16 @@ var getWeather = function () {
         }
     });
 }
+getCurrentWeather();
+// var getDailyWeather = function() {
+//     var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=32.7831&lon=-96.8067&cnt=5&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
+//     console.log(weatherUrl)
+//     fetch(weatherUrl)
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(function (data) {
+//             console.log(data)
+// }
 
-getWeather();
+// searchBtnEl.addEventListener('click', getCurrentWeather)
