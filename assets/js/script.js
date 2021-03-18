@@ -7,6 +7,7 @@ var currentDate = new Date().toLocaleDateString('en-US')
 var printCityList = function(name) {
     
     var cityListItem = document.createElement('li')
+    cityListEl.classList.add('list-unstyled')
     cityListItem.textContent = name;
     cityListEl.appendChild(cityListItem)
 };
@@ -32,30 +33,28 @@ var getCurrentWeather = function (cityName) {
 
             var wind1El = document.querySelector('#wind1')
             wind1El.textContent = "Wind Speed: " + data.wind.speed + " MPH"
+
+            var uvUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat=' + data.coord.lat + '&lon=' + data.coord.lon + '&appid=f05e59dca587993db2e06e2c3a372a11'
+
+            fetch(uvUrl)
+                .then(function(response){
+                    return response.json();
+                })
+                .then(function (data){
+                    console.log(data)
+                    var uv1El = document.querySelector('#uv1')
+                    uv1El.textContent = "UV Index: " + data.value
+        
+                    if(data.value === 0 || data.value < 3){
+                        uv1El.setAttribute("style", "color: green;")
+                    } else if (data.value >= 3 && data.value <= 6) {
+                        uv1El.setAttribute("style", "color: yellow;")
+                    } else {
+                        uv1El.setAttribute("style", "color: red;")
+                    }
+                })
         });
 };
-
-// var getUvIndex = function (cityName) {
-//     var uvUrl = 'https://api.openweathermap.org/data/2.5/uvi?q=' + cityName + '&appid=f05e59dca587993db2e06e2c3a372a11'
-    
-//     fetch(uvUrl)
-//     .then(function (response){
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         console.log(data)
-//         var uv1El = document.querySelector('#uv1')
-//         uv1El.textContent = "UV Index: " + data.value
-
-//         if(data.value === 1 || data.value < 2){
-//             uv1El.setAttribute("style", "color: green;")
-//         } else if (data.value >= 3 && data.value <= 5) {
-//             uv1El.setAttribute("style", "color: yellow;")
-//         } else {
-//             uv1El.setAttribute("style", "color: red;")
-//         }
-//     });
-// }
 
 
 // var getDailyWeather = function(cityName) {
@@ -88,7 +87,6 @@ cityFormEl.addEventListener('submit', function(event){
     } else {
         printCityList(cityNameVal);
         getCurrentWeather(cityNameVal);
-        getUvIndex(cityNameVal);
     }
 });
 
