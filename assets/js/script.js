@@ -4,8 +4,15 @@ var cityNameEl = document.querySelector('#cityName')
 var cityListEl = document.querySelector('#cityList')
 var currentDate = new Date().toLocaleDateString('en-US')
 
-var getCurrentWeather = function () {
-    var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=32.7831&lon=-96.8067&cnt=5&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
+var printCityList = function(name) {
+    
+    var cityListItem = document.createElement('li')
+    cityListItem.textContent = name;
+    cityListEl.appendChild(cityListItem)
+};
+
+var getCurrentWeather = function (cityName) {
+    var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
     console.log(weatherUrl)
     fetch(weatherUrl)
         .then(function (response) {
@@ -48,7 +55,7 @@ var getCurrentWeather = function () {
     });
 }
 
-getCurrentWeather();
+
 var getDailyWeather = function() {
     var weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=32.7831&lon=-96.8067&cnt=5&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
     console.log(weatherUrl)
@@ -67,4 +74,14 @@ var getDailyWeather = function() {
 
 getDailyWeather()
 
-// searchBtnEl.addEventListener('click', getCurrentWeather)
+cityFormEl.addEventListener('submit', function(event){
+    event.preventDefault()
+    var cityNameVal = cityNameEl.value
+    console.log(cityNameEl.value)
+    printCityList(cityNameVal);
+    getCurrentWeather(cityNameVal);
+    // Displays what the user inputted
+    // Add input to history list
+
+});
+
