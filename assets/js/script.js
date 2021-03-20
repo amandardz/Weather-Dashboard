@@ -10,7 +10,7 @@ var currentDate = new Date().toLocaleDateString('en-US')
 var printCityList = function(name) {
     
     var cityListItem = document.createElement('li')
-    cityListEl.classList.add('list-unstyled')
+    cityListItem.classList.add('list-unstyled', 'list-group-item', 'list-group-item-active', 'mt-1')
     cityListItem.textContent = name;
     cityListEl.appendChild(cityListItem)
 };
@@ -28,9 +28,7 @@ var getCurrentWeather = function (cityName) {
 
             var currentWeatherDiv = document.createElement('div')
             currentWeatherEl.appendChild(currentWeatherDiv)
-            var currentWeatherInfo = document.createElement('p')
-            currentWeatherDiv.appendChild(currentWeatherInfo)
-            currentWeatherInfo.innerHTML = '<h2>' + data.name + ' ' + currentDate + ' ' + '<img src="' + iconUrl + '" alt="Weather Icons">' + '</h2>' + '<p>' + "Temp: " + Math.round(data.main.temp) + " ℉" + '</p>' + '<p>' + "Humid: " + data.main.humidity + "%" + '</p>' + '<p>' + "Wind Speed: " + data.wind.speed + " MPH" + '</p>'
+            currentWeatherDiv.innerHTML = '<h2>' + data.name + ' ' + currentDate + ' ' + '<img src="' + iconUrl + '" alt="Weather Icons">' + '</h2>' + '<p>' + "Temp: " + Math.round(data.main.temp) + " ℉" + '</p>' + '<p>' + "Humid: " + data.main.humidity + "%" + '</p>' + '<p>' + "Wind Speed: " + data.wind.speed + " MPH" + '</p>'
 
             var uvUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + data.coord.lat + '&lon=' + data.coord.lon + '&exclude=current,minutely,hourly,alerts&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
 
@@ -58,9 +56,7 @@ var getCurrentWeather = function (cityName) {
                         var iconUrl = 'https://www.openweathermap.org/img/wn/' + dailyWeatherIcon + '.png'
                         var weeklyDiv = document.createElement('div')
                         weeklyEl.appendChild(weeklyDiv)
-                        var dailyWeatherInfo = document.createElement('p')
-                        weeklyDiv.appendChild(dailyWeatherInfo)
-                        dailyWeatherInfo.innerHTML = '<p>' + dailyDate + '</p>' + '<p>' +  '<img src="' + iconUrl + '" alt="Weather Icons">' + '</p>' + '<p>' + "Temp: " + Math.round(data.daily[i].temp.max) + " ℉" + '</p>' + '<p>' + "Humid: " + data.daily[i].humidity + "%" + '</p>'
+                        weeklyDiv.innerHTML = '<p>' + dailyDate + '</p>' + '<p>' +  '<img src="' + iconUrl + '" alt="Weather Icons">' + '</p>' + '<p>' + "Temp: " + Math.round(data.daily[i].temp.max) + " ℉" + '</p>' + '<p>' + "Humid: " + data.daily[i].humidity + "%" + '</p>'
                     }
                 })
         })
