@@ -24,13 +24,13 @@ var getCurrentWeather = function (cityName) {
         .then(function (data) {
             console.log(data)
             var iconCode = data.weather[0].icon
-            var iconUrl = 'http://openweathermap.org/img/w/' + iconCode + '.png'
+            var iconUrl = 'https://www.openweathermap.org/img/wn/' + iconCode + '.png'
 
             var currentWeatherDiv = document.createElement('div')
             currentWeatherEl.appendChild(currentWeatherDiv)
             var currentWeatherInfo = document.createElement('p')
             currentWeatherDiv.appendChild(currentWeatherInfo)
-            currentWeatherInfo.innerHTML = '<h2>' + data.name + ' ' + currentDate + ' ' + '<img src="' + iconUrl + '">' + '</h2>' + '<p>' + "Temp: " + Math.round(data.main.temp) + " ℉" + '</p>' + '<p>' + "Humid: " + data.main.humidity + "%" + '</p>' + '<p>' + "Wind Speed: " + data.wind.speed + " MPH" + '</p>'
+            currentWeatherInfo.innerHTML = '<h2>' + data.name + ' ' + currentDate + ' ' + '<img src="' + iconUrl + '" alt="Weather Icons">' + '</h2>' + '<p>' + "Temp: " + Math.round(data.main.temp) + " ℉" + '</p>' + '<p>' + "Humid: " + data.main.humidity + "%" + '</p>' + '<p>' + "Wind Speed: " + data.wind.speed + " MPH" + '</p>'
 
             var uvUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + data.coord.lat + '&lon=' + data.coord.lon + '&exclude=current,minutely,hourly,alerts&units=imperial&appid=f05e59dca587993db2e06e2c3a372a11'
 
@@ -54,11 +54,13 @@ var getCurrentWeather = function (cityName) {
 
                     for(var i = 1; i < 6; i++){
                         var dailyDate = new Date(data.daily[i].dt * 1000).toLocaleDateString('en-US')
+                        var dailyWeatherIcon = data.daily[i].weather[0].icon
+                        var iconUrl = 'https://www.openweathermap.org/img/wn/' + dailyWeatherIcon + '.png'
                         var weeklyDiv = document.createElement('div')
                         weeklyEl.appendChild(weeklyDiv)
                         var dailyWeatherInfo = document.createElement('p')
                         weeklyDiv.appendChild(dailyWeatherInfo)
-                        dailyWeatherInfo.innerHTML = '<p>' + dailyDate + '</p>' + '<p>' + "Temp: " + Math.round(data.daily[i].temp.max) + " ℉" + '</p>' + '<p>' + "Humid: " + data.daily[i].humidity + "%" + '</p>'
+                        dailyWeatherInfo.innerHTML = '<p>' + dailyDate + '</p>' + '<p>' +  '<img src="' + iconUrl + '" alt="Weather Icons">' + '</p>' + '<p>' + "Temp: " + Math.round(data.daily[i].temp.max) + " ℉" + '</p>' + '<p>' + "Humid: " + data.daily[i].humidity + "%" + '</p>'
                     }
                 })
         })
@@ -77,5 +79,6 @@ cityFormEl.addEventListener('submit', function(event){
     } else {
         printCityList(cityNameVal);
         getCurrentWeather(cityNameVal);
+        
     }
 });
