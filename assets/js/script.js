@@ -70,15 +70,16 @@ cityFormEl.addEventListener('submit', function(event){
     event.preventDefault();
     var cityNameVal = cityNameEl.value
     console.log(cityNameEl.value)
-    var cityNameInput = ''
-    if (cityNameVal === cityNameInput) {
+  
+    if (cityNameVal === '') {
         var messageEl = cityFormEl.children[1]
         messageEl.classList.remove('d-none')
         messageEl.classList.add('d-block')
         messageEl.textContent = 'Please enter a city name'
     } else {
+        currentWeatherEl.innerHTML = '';
+        weeklyEl.innerHTML = '';
         printCityList(cityNameVal);
         getCurrentWeather(cityNameVal);
-        
     }
 });
